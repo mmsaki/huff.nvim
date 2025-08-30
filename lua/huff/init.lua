@@ -21,16 +21,6 @@ function M.setup()
 	vim.filetype.add({
 		extension = { huff = "huff" },
 	})
-
-	local parser_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/nvim-treesitter/parser/huff-treesitter"
-	local queries_path = parser_path .. "/queries"
-
-	if vim.fn.isdirectory(queries_path) == 1 then
-		local ts_query = require("nvim-treesitter.query")
-		ts_query.set_query_path("huff", { queries_path })
-	else
-		vim.notify("[huff.nvim] Queries folder not found at: " .. queries_path, vim.log.levels.WARN)
-	end
 end
 
 return M
