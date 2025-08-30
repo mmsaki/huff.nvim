@@ -23,16 +23,6 @@ Using **[lazy.nvim](https://github.com/folke/lazy.nvim)**:
 return {
   "mmsaki/huff.nvim",
   dependencies = { "nvim-treesitter/nvim-treesitter" },
-  tag = "0.1.1",
-  ft = { "huff" },
-  config = function()
-    require("huff").setup()
-    require("nvim-treesitter.configs").setup({
-      ensure_installed = { "huff" },
-      highlight = { enable = true },
-      indent = { enable = true },
-    })
-  end,
 }
 ```
 
