@@ -47,12 +47,12 @@ While there are other Huff plugins available, `huff.nvim` offers several advanta
 
 | Feature | huff.nvim | [pedrommaiaa/vim-huff](https://github.com/pedrommaiaa/vim-huff) | [wuwe1/vim-huff](https://github.com/wuwe1/vim-huff) |
 | --- | --- | --- | --- |
-| **Grammar Parsing** | [x] | x | x |
-| **TreeSitter Support** | [x] | x | x |
-| **Maintenance Status** | [x] | ? | ? |
-| **Syntax Highlighting** | [x] | ⚠️ | ⚠️ |
-| **Indentation** | [x] | ? | ? |
-| **Opcode Lookup** | [x] | ? | [x] |
+| **Grammar Parsing** | ✓ | x | x |
+| **TreeSitter Support** | ✓ | x | x |
+| **Maintenance Status** | ✓ | ? | ? |
+| **Syntax Highlighting** | ✓ | ⚠️ | ⚠️ |
+| **Indentation** | ✓ | ? | ? |
+| **Opcode Lookup** | ✓ | ? | ✓ |
 
 ## 🤝 Contributing
 
