@@ -8,43 +8,6 @@
 ;; --------------------------
 (natspec_line) @comment
 (natspec_block) @comment
-
-;; Highlight natspec tags within comments - these will show as both comment and attribute
-((natspec_line) @attribute
- (#match? @attribute "@title"))
-
-((natspec_line) @attribute
- (#match? @attribute "@author"))
-
-((natspec_line) @attribute
- (#match? @attribute "@notice"))
-
-((natspec_line) @attribute
- (#match? @attribute "@dev"))
-
-((natspec_line) @attribute
- (#match? @attribute "@param"))
-
-((natspec_line) @attribute
- (#match? @attribute "@return"))
-
-((natspec_block) @attribute
- (#match? @attribute "@title"))
-
-((natspec_block) @attribute
- (#match? @attribute "@author"))
-
-((natspec_block) @attribute
- (#match? @attribute "@notice"))
-
-((natspec_block) @attribute
- (#match? @attribute "@dev"))
-
-((natspec_block) @attribute
- (#match? @attribute "@param"))
-
-((natspec_block) @attribute
- (#match? @attribute "@return"))
 (comment_line) @comment
 (comment_block) @comment
 

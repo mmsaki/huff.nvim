@@ -71,6 +71,10 @@
 ;; Don't auto-indent comments that are already aligned
 (comment) @indent.auto
 
+;; Handle natspec comments - maintain consistent indentation  
+(natspec_line) @indent.auto
+(natspec_block) @indent.auto
+
 ;; Handle parameter continuation lines
 (parameter) @indent.branch
 
