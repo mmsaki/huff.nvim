@@ -8,6 +8,7 @@ Huff Treesitter support for Neovim.
 {
   "mmsaki/huff.nvim",
   dependencies = { "nvim-treesitter/nvim-treesitter" },
+  ft = { "huff" },
   config = function()
     require("huff").setup()
     require("nvim-treesitter.configs").setup({
