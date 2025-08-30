@@ -45,11 +45,11 @@ Supports all EVM opcodes including arithmetic, comparison, bitwise, memory, stor
 
 While there are other Huff plugins available, `huff.nvim` offers several advantages:
 
-| Feature | huff.nvim | [pedrommaiaa/vim-huff](https://github.com/pedrommaiaa/vim-huff) | [wuwe1/vim-huff](https://github.com/wuwe1/vim-huff) |
+| Feature | huff.nvim | [wuwe1/vim-huff](https://github.com/wuwe1/vim-huff) | [pedrommaiaa/vim-huff](https://github.com/pedrommaiaa/vim-huff) |
 | --- | --- | --- | --- |
 | **Syntax Highlighting** | ✓ | ✓ | ✓ |
 | **Indentation** | ✓ | ✓ | ✓ |
-| **Opcode Lookup** | ✓ | x | ✓ |
+| **Opcode Lookup** | ✓ | ✓ | x |
 | **Grammar Parsing** | ✓ | x | x |
 | **TreeSitter Support** | ✓ | x | x |
 
