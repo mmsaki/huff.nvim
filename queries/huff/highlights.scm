@@ -56,6 +56,7 @@
 (number_decimal) @number
 (number_hex) @number
 
+(interface_primitives array_size: (number_decimal) @number)
 (jumpdest_label name: (identifier) @label)
 (jumpdest name: (identifier) @label)
 (jumptable_body (identifier) @label)
