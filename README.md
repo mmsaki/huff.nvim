@@ -16,6 +16,8 @@
 * ⚡ **Lazy-loaded** for performance
 * 🛠️ Simple setup, no extra configuration needed
 
+![screenshot](./img/screenshot.png)
+
 ## 📦 Installation
 
 Using **[lazy.nvim](https://github.com/folke/lazy.nvim)**:
@@ -27,8 +29,6 @@ return {
   dependencies = { "nvim-treesitter/nvim-treesitter" },
 }
 ```
-
-![screenshot](./img/screenshot.png)
 
 ## ⚒️ Commands
 
