@@ -36,7 +36,7 @@ return {
 | ----------------- | ------------------------ |
 | `:TSInstall huff` | Installs the Huff parser |
 | `:TSUpdate`       | Updates all parsers      |
-| `:OpcodeInfo`     | Look up EVM opcode information |
+| `:OpcodeInfo [opcode]` | Look up EVM opcode information (uses cursor word if no argument) |
 | <kbd>shift</kbd> → <kbd>k</kbd> | Opcode Lookup |
 
 Supports all EVM opcodes including arithmetic, comparison, bitwise, memory, storage, and control flow operations.
