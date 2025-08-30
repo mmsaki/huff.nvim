@@ -12,6 +12,7 @@
 
 * 🧩 **Treesitter-powered parsing** — accurate syntax highlighting
 * 📜 **Huff language support** — compatible with `.huff` files
+* 🔍 **Opcode lookup** — hover over opcodes to see descriptions, inputs, and outputs
 * ⚡ **Lazy-loaded** for performance
 * 🛠️ Simple setup, no extra configuration needed
 
@@ -35,12 +36,23 @@ return {
 | ----------------- | ------------------------ |
 | `:TSInstall huff` | Installs the Huff parser |
 | `:TSUpdate`       | Updates all parsers      |
+| `:OpcodeInfo`     | Look up EVM opcode information |
+| <kbd>shift</kbd> → <kbd>k</kbd> | Opcode Lookup |
+
+Supports all EVM opcodes including arithmetic, comparison, bitwise, memory, storage, and control flow operations.
 
 ## 🔄 Alternatives
 
-If you prefer a non-Treesitter implementation:
+While there are other Huff plugins available, `huff.nvim` offers several advantages:
 
-* [vim-huff](https://github.com/pedrommaiaa/vim-huff)
+| Feature | huff.nvim | [pedrommaiaa/vim-huff](https://github.com/pedrommaiaa/vim-huff) | [wuwe1/vim-huff](https://github.com/wuwe1/vim-huff) |
+| --- | --- | --- | --- |
+| **Grammar Parsing** | ✅ | ❌ regex patterns | ❌ regex patterns |
+| **TreeSitter Support** | ✅ | ❌ | ❌ |
+| **Maintenance Status** | ✅ | ? | ? |
+| **Syntax Highlighting** | ✅ Context-aware highlighting | ⚠️ | ⚠️ |
+| **Indentation** | ✅ Smart indentation | ? | ? |
+| **Opcode Lookup** | ✅ | ? | ✅ |
 
 ## 🤝 Contributing
 
