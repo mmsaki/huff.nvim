@@ -24,8 +24,6 @@ Huff Treesitter support for Neovim.
 
 `:TSInstall huff` → Install parser
 
-`:TSEnable highlight` → Enable highlighting
-
 ## Links
 
 - [GitHub](https://github.com/mmsaki/huff.nvim)
