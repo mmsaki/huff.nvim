@@ -105,13 +105,6 @@ M.lookup_opcode = function(opcode)
 
 	local data = loaded_opcodes[word]
 	if not data then
-		local suggestions = {}
-		for opcode_name, _ in pairs(loaded_opcodes) do
-			if opcode_name:sub(1, 1) == word:sub(1, 1) then
-				table.insert(suggestions, opcode_name)
-			end
-		end
-		vim.notify("Opcode not found", vim.log.levels.INFO)
 		return
 	end
 
