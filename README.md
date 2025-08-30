@@ -1,4 +1,4 @@
-# ♞ huff.nvim
+# ♟️ huff.nvim
 
 Huff Treesitter support for Neovim.
 
