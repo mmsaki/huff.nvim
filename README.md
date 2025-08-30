@@ -22,6 +22,7 @@ Using **[lazy.nvim](https://github.com/folke/lazy.nvim)**:
 ```lua
 return {
   "mmsaki/huff.nvim",
+  version = "0.2.*",
   dependencies = { "nvim-treesitter/nvim-treesitter" },
 }
 ```
