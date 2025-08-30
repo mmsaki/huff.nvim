@@ -1,9 +1,9 @@
 local M = {}
 
 function M.setup()
-	local ok, parsers = require("nvim-treesitter.parsers")
-	if not ok then
-		vim.notify("[huff.nvim] nvim-treesitter not found", vim.log.levels.WARN)
+	local ok, parsers = pcall(require, "nvim-treesitter.parsers")
+	if not ok or not parsers then
+		vim.notify("[huff.nvim] nvim-treesitter not available", vim.log.levels.WARN)
 		return
 	end
 
@@ -12,15 +12,15 @@ function M.setup()
 		install_info = {
 			url = "https://github.com/mmsaki/huff-treesitter",
 			files = { "src/parser.c" },
-			generate_requires_npm = true,
-			requires_generate_from_grammar = true,
+			branch = "main",
+			generate_requires_npm = false,
 		},
 		filetype = "huff",
 	}
 
-	local ts_ok, configs = require("nvim-treesitter.configs")
-	if ts_ok then
-	end
+	vim.filetype.add({
+		extension = { huff = "huff" },
+	})
 end
 
 return M
