@@ -34,13 +34,6 @@ local function load_opcodes()
 	end
 
 	opcodes = decoded
-	-- Debug: print number of opcodes loaded
-	local count = 0
-	for _ in pairs(opcodes) do
-		count = count + 1
-	end
-	vim.notify("[huff.nvim] Loaded " .. count .. " opcodes", vim.log.levels.INFO)
-
 	return opcodes
 end
 
