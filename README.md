@@ -26,6 +26,8 @@ return {
 }
 ```
 
+![screenshot](./img/screenshot.png)
+
 ## ⚒️ Commands
 
 | Command           | Description              |
