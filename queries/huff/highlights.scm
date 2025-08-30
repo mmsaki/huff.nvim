@@ -8,14 +8,6 @@
 ;; --------------------------
 (natspec_line) @comment
 (natspec_block) @comment
-
-(natspec_tag_title) @attribute
-(natspec_tag_author) @attribute
-(natspec_tag_notice) @attribute
-(natspec_tag_dev) @attribute
-(natspec_tag_param) @attribute
-(natspec_tag_return) @attribute
-
 (comment_line) @comment
 (comment_block) @comment
 

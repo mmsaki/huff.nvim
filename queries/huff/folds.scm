@@ -17,14 +17,10 @@
   "}" @fold.end) @fold
 
 ;; Comment blocks
-(comment_block
-  "/*" @fold.start
-  "*/" @fold.end) @fold
+(comment_block) @fold
 
 ;; Natspec blocks
-(natspec_block
-  "/**" @fold.start
-  "*/" @fold.end) @fold
+(natspec_block) @fold
 
 ;; Multi-line parameter lists
 (parameter_list
