@@ -89,7 +89,7 @@ local function show_horizontal_buffer(lines)
 	return buf
 end
 
-M.lookup_opcode = function()
+M.lookup_opcode = function(opcode)
 	local loaded_opcodes = load_opcodes()
 
 	if not loaded_opcodes or vim.tbl_isempty(loaded_opcodes) then
@@ -97,10 +97,15 @@ M.lookup_opcode = function()
 		return
 	end
 
-	local word = vim.fn.expand("<cword>"):lower()
-	if not word or word == "" then
-		vim.notify("[huff.nvim] No word under cursor", vim.log.levels.WARN)
-		return
+	local word
+	if opcode and opcode ~= "" then
+		word = opcode:lower()
+	else
+		word = vim.fn.expand("<cword>"):lower()
+		if not word or word == "" then
+			vim.notify("[huff.nvim] No word under cursor", vim.log.levels.WARN)
+			return
+		end
 	end
 
 	local data = loaded_opcodes[word]
@@ -222,8 +227,11 @@ function M.setup()
 		end,
 	})
 
-	vim.api.nvim_create_user_command("OpcodeInfo", M.lookup_opcode, {
+	vim.api.nvim_create_user_command("OpcodeInfo", function(opts)
+		M.lookup_opcode(opts.args)
+	end, {
 		desc = "Look up EVM opcode information",
+		nargs = "?",
 	})
 end
 
