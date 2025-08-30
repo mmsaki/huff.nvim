@@ -1,10 +1,10 @@
-local M = {}
+local M = {
+	opcodes = nil,
+}
 
-local opcodes = nil
-
-local function load_opcodes()
-	if opcodes then
-		return opcodes
+M.load_opcodes = function()
+	if M.opcodes then
+		return M.opcodes
 	end
 
 	local plugin_paths = vim.api.nvim_get_runtime_file("lua/huff/data/opcodes.json", false)
@@ -12,15 +12,13 @@ local function load_opcodes()
 
 	if not path then
 		vim.notify("[huff.nvim] Failed to locate opcodes.json", vim.log.levels.ERROR)
-		opcodes = {}
-		return opcodes
+		return
 	end
 
 	local fd = io.open(path, "r")
 	if not fd then
 		vim.notify("[huff.nvim] Failed to load opcodes JSON: " .. path, vim.log.levels.ERROR)
-		opcodes = {}
-		return opcodes
+		return
 	end
 
 	local content = fd:read("*a")
@@ -29,12 +27,11 @@ local function load_opcodes()
 	local success, decoded = pcall(vim.fn.json_decode, content)
 	if not success then
 		vim.notify("[huff.nvim] Failed to parse opcodes JSON", vim.log.levels.ERROR)
-		opcodes = {}
-		return opcodes
+		return
 	end
 
-	opcodes = decoded
-	return opcodes
+	M.opcodes = decoded
+	return M.opcodes
 end
 
 local function format_info(name, data)
@@ -63,14 +60,13 @@ end
 local function show_horizontal_buffer(lines)
 	vim.cmd("split")
 	local buf = vim.api.nvim_create_buf(false, true)
-	vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
 	vim.api.nvim_win_set_buf(0, buf)
+	vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
 	vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
 	vim.api.nvim_buf_set_option(buf, "swapfile", false)
 	vim.api.nvim_buf_set_option(buf, "modifiable", false)
 	vim.api.nvim_win_set_height(0, #lines)
 	vim.api.nvim_win_set_option(0, "statusline", " EVM_LOOKUP")
-
 	vim.fn.matchadd("Number", "0x[0-9a-fA-F]\\+", -1, -1, { window = 0 })
 	local close_keys = { "q", "<Esc>", "<CR>" }
 	for _, key in ipairs(close_keys) do
@@ -85,12 +81,11 @@ local function show_horizontal_buffer(lines)
 			end
 		end,
 	})
-
 	return buf
 end
 
 M.lookup_opcode = function(opcode)
-	local loaded_opcodes = load_opcodes()
+	local loaded_opcodes = M.load_opcodes()
 
 	if not loaded_opcodes or vim.tbl_isempty(loaded_opcodes) then
 		vim.notify("[huff.nvim] No opcodes loaded", vim.log.levels.ERROR)
@@ -124,72 +119,6 @@ M.lookup_opcode = function(opcode)
 	show_horizontal_buffer(lines)
 end
 
-local function get_opcode_hover_info(word)
-	load_opcodes()
-	local data = opcodes[word:lower()]
-	if data then
-		return format_info(word, data)
-	end
-	return nil
-end
-
-local function setup_hover_handler(buf)
-	local current_hover_buf = nil
-	local hover_timer = nil
-	local function close_hover_buffer()
-		if current_hover_buf and vim.api.nvim_buf_is_valid(current_hover_buf) then
-			local wins = vim.api.nvim_list_wins()
-			for _, win in ipairs(wins) do
-				if vim.api.nvim_win_is_valid(win) and vim.api.nvim_win_get_buf(win) == current_hover_buf then
-					vim.api.nvim_win_close(win, true)
-					break
-				end
-			end
-			current_hover_buf = nil
-		end
-	end
-
-	local function show_hover()
-		local word = vim.fn.expand("<cword>")
-
-		if not word or word == "" then
-			close_hover_buffer()
-			return
-		end
-
-		local hover_info = get_opcode_hover_info(word)
-		if not hover_info then
-			close_hover_buffer()
-			return
-		end
-
-		close_hover_buffer()
-		current_hover_buf = show_horizontal_buffer(hover_info)
-	end
-
-	vim.api.nvim_create_autocmd("CursorHold", {
-		buffer = buf,
-		callback = function()
-			if hover_timer then
-				hover_timer:close()
-			end
-
-			hover_timer = vim.loop.new_timer()
-			hover_timer:start(800, 0, vim.schedule_wrap(show_hover))
-		end,
-	})
-
-	vim.api.nvim_create_autocmd("BufUnload", {
-		buffer = buf,
-		callback = function()
-			close_hover_buffer()
-			if hover_timer then
-				hover_timer:close()
-			end
-		end,
-	})
-end
-
 function M.setup()
 	local ok, parsers = pcall(require, "nvim-treesitter.parsers")
 	if not ok or not parsers then
@@ -221,9 +150,6 @@ function M.setup()
 				silent = true,
 				buffer = buf,
 			})
-
-			-- Set up hover functionality
-			setup_hover_handler(buf)
 		end,
 	})
 
