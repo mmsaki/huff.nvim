@@ -7,13 +7,13 @@ function M.setup()
 		return
 	end
 
-	local parser_config = parsers.get_parser_configs()
+	local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 	parser_config.huff = {
 		install_info = {
 			url = "https://github.com/mmsaki/huff-treesitter",
 			files = { "src/parser.c" },
 			branch = "main",
-			generate_requires_npm = false,
+			generate_requires_npm = true,
 		},
 		filetype = "huff",
 	}
