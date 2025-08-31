@@ -184,6 +184,12 @@ function M.setup(opts)
 		filetype = "huff",
 	}
 
+	if parsers.has_parser("huff") then
+		vim.schedule(function()
+			vim.cmd("TSUpdateSync huff")
+		end)
+	end
+
 	vim.filetype.add({
 		extension = { huff = "huff" },
 	})
