@@ -28,7 +28,7 @@ return {
   version = "0.2.*",
   dependencies = { "nvim-treesitter/nvim-treesitter" },
   opts = {
-    window_type = "floating", -- "floating" or "split" (default: "floating")
+    window_type = "floating", -- "floating" or "split"
   },
 }
 ```
@@ -40,14 +40,6 @@ The plugin can be configured with the following options:
 | Option | Type | Default | Description |
 | --- | --- | --- | --- |
 | `window_type` | string | `"floating"` | Display mode for opcode information: `"floating"` for floating window or `"split"` for horizontal split at top |
-
-### Example Configuration
-
-```lua
-require("huff").setup({
-  window_type = "split", -- Use split window instead of floating
-})
-```
 
 ## ⚒️ Commands
 
