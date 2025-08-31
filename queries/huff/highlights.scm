@@ -1,98 +1,101 @@
-(natspec_line) @comment
-(natspec_block) @comment
-(comment_line) @comment
-(comment_block) @comment
+(natspec_line) @Comment
+(natspec_block) @Comment
+(comment_line) @Comment
+(comment_block) @Comment
 
-"#define" @keyword.directive.define
-"macro" @keyword
-"fn" @keyword
-"jumptable" @keyword
-"jumptable__packed" @keyword
-"function" @keyword
-"event" @keyword
-"error" @keyword
-"constant" @keyword
-"table" @keyword
-"test" @keyword
-"takes" @keyword
-"returns" @keyword
+"#define" @Define
+"macro" @Keyword
+"fn" @Keyword
+"jumptable" @Keyword
+"jumptable__packed" @Keyword
+"function" @Keyword
+"event" @Keyword
+"error" @Keyword
+"constant" @Keyword
+"table" @Keyword
+"test" @Keyword
+"takes" @Keyword
+"returns" @Keyword
 
-(declaration_macro name: (identifier) @function)
-(declaration_fn name: (identifier) @function)
-(declaration_jumptable name: (identifier) @function)
-(declaration_jumptable_packed name: (identifier) @function)
-(declaration_table name: (identifier) @function)
-(declaration_test name: (identifier) @function)
-(interface_function name: (identifier) @function)
-(interface_event name: (identifier) @function)
-(error_definition name: (identifier) @function)
+(declaration_macro name: (identifier) @Function)
+(declaration_fn name: (identifier) @Function)
+(declaration_jumptable name: (identifier) @Function)
+(declaration_jumptable_packed name: (identifier) @Function)
+(declaration_table name: (identifier) @Function)
+(declaration_test name: (identifier) @Function)
+(interface_function name: (identifier) @Function)
+(interface_event name: (identifier) @Function)
+(error_definition name: (identifier) @Error)
 
-(interface_primitives) @type.builtin
-"view" @keyword
-"pure" @keyword
-"payable" @keyword
-"nonpayable" @keyword
-"external" @keyword
-"internal" @keyword
-"public" @keyword
-"private" @keyword
-"memory" @keyword
-"storage" @keyword
-"calldata" @keyword
+(interface_primitives) @Type
+"view" @Keyword
+"pure" @Keyword
+"payable" @Keyword
+"nonpayable" @Keyword
+"external" @Keyword
+"internal" @Keyword
+"public" @Keyword
+"private" @Keyword
+"memory" @Keyword
+"storage" @Keyword
+"calldata" @Keyword
 
-(parameter name: (identifier) @variable.parameter)
+(parameter name: (identifier) @Identifier)
 
-(opcode) @variable
-"jump" @variable
-"jumpi" @variable
+(opcode) @Identifier
+"jump" @Identifier
+"jumpi" @Identifier
 
-(template_parameter_call) @variable.parameter
+(template_parameter_call
+  (template_token) @attribute.builtin)
 
-(macro_call name: (identifier) @function)
+(macro_call name: (identifier) @Function)
 
-(constant_definition name: (identifier) @variable)
-(constant_reference) @variable
+(constant_definition name: (identifier) @Identifier)
+(constant_reference) @Constant
 
-(number_decimal) @number
-(number_hex) @number
+(number_decimal) @Number
+(number_hex) @Number
 
-(interface_primitives array_size: (number_decimal) @number)
-(jumpdest_label name: (identifier) @label)
-(jumpdest name: (identifier) @label)
-(jumptable_body (identifier) @label)
+(interface_primitives array_size: (number_decimal) @Number)
+(jumpdest_label name: (identifier) @Label)
+(jumpdest name: (identifier) @Label)
+(jumptable_body (identifier) @Label)
 
-((macro_call name: (identifier) @function)
- (#match? @function "^[A-Z][A-Z0-9_]*$")) ; All caps suggests macro
+((macro_call name: (identifier) @Function)
+ (#match? @Function "^[A-Z][A-Z0-9_]*$")) ; All caps suggests macro
 
-(builtin_function) @function.builtin
-(builtin_function args: (identifier) @function)
-"__ERROR" @function.builtin
-"__EVENT_HASH" @function.builtin
-"__FUNC_SIG" @function.builtin
-"__RIGHTPAD" @function.builtin
-"__codesize" @function.builtin
-"__tablesize" @function.builtin
-"__tablestart" @function.builtin
+(builtin_function) @Keyword
+(builtin_function args: (identifier) @Function)
+"__ERROR" @Constant
+"__EVENT_HASH" @Constant
+"__FUNC_SIG" @Constant
+"__RIGHTPAD" @Constant
+"__codesize" @Constant
+"__tablesize" @Constant
+"__tablestart" @Constant
 
-"#include" @keyword.import
-(control_include path: (string_literal) @string)
+"#include" @Include
+(control_include path: (string_literal) @String)
 
-(modifier_indexed) @keyword
+(modifier_indexed) @Keyword
 
-(string_literal) @string
+(string_literal) @String
 
-(decorator) @attribute
-(decorator_item name: (identifier) @attribute)
-(decorator_item args: (string_literal) @string)
-(decorator_item args: (number) @number)
+(decorator) @Identifier
+(decorator_item name: (identifier) @Identifier)
+(decorator_item args: (string_literal) @String)
+(decorator_item args: (number) @Number)
 
-"=" @operator
-":" @punctuation.delimiter
-"," @punctuation.delimiter
-"(" @punctuation.bracket
-")" @punctuation.bracket
-"{" @punctuation.bracket
-"}" @punctuation.bracket
-"[" @punctuation.bracket
-"]" @punctuation.bracket
-"#[" @punctuation.bracket
+"=" @Operator
+":" @Delimiter
+"," @Delimiter
+"(" @Delimiter
+")" @Delimiter
+"{" @Delimiter
+"}" @Delimiter
+"[" @Delimiter
+"]" @Delimiter
+"#[" @Delimiter
+">" @attribute.builtin
+"<" @attribute.builtin
