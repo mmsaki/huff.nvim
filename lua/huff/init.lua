@@ -47,7 +47,11 @@ local function format_info(name, data)
 	else
 		input_params = "()"
 	end
-	table.insert(lines, "[0x" .. data.opcode:lower() .. "] " .. name:lower() .. input_params)
+	if data.opcode and data.opcode ~= "" then
+		table.insert(lines, "[0x" .. data.opcode .. "] " .. name .. input_params)
+	else
+		table.insert(lines, name .. input_params)
+	end
 
 	-- Second line: -> output
 	if data.output and data.output ~= "" then
@@ -55,7 +59,7 @@ local function format_info(name, data)
 	end
 
 	-- Third line: description
-	table.insert(lines, (data.desc or "No description available"))
+	vim.list_extend(lines, (vim.split(data.desc, "\n") or "No description available"))
 
 	return lines
 end
@@ -141,9 +145,9 @@ M.lookup_opcode = function(opcode)
 
 	local word
 	if opcode and opcode ~= "" then
-		word = opcode:lower()
+		word = opcode
 	else
-		word = vim.fn.expand("<cword>"):lower()
+		word = vim.fn.expand("<cword>")
 		if not word or word == "" then
 			vim.notify("[huff.nvim] No word under cursor", vim.log.levels.WARN)
 			return

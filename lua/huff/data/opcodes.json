@@ -1,4 +1,19 @@
 {
+	"__ERROR": {
+		"desc": "Push 4 byte selector of error to the stack\n\nExample:\n#define error PanicError(string)\n#define macro PANIC() = takes (1) returns (0) {\n\t// Input stack:          [panic_code]\n\t__ERROR(PanicError)   // [panic_error_selector, panic_code]\n\t0x00 mstore           // [panic_code]\n\t0x04 mstore           // []\n\t0x24 0x00 revert\n}\n#define macro REQUIRE() = takes (3) returns (0) {\n\t// Input stack:          [condition, message_length, message]\n\tcontinue jumpi        // [message]\n\n\t__ERROR(\"Error(string)\")// [error_selector, message_length, message]\n\t0x00 mstore           // [message_length, message]\n\t0x20 0x04 mstore      // [message_length, message]\n\t0x24 mstore           // [message]\n\t0x44 mstore           // []\n\n\t0x64 0x00 revert\n\ncontinue:\n\t\tpop               // []\n}\n",
+		"input": "errorName",
+		"output": "0xbe20788c00000000000000000000000000000000000000000000000000000000"
+	},
+	"__FUNC_SIG": {
+		"desc": "Push 4 bytes of function signature to the stack\n\nExample:\n#define function transfer(address,uint256) nonpayable returns ()\n#define macro TRANSFER() = takes (0) returns (0) {\n\t//...\n}\n#define macro MAIN() = takes(0) returns (0) {\n\t// Identify which function is being called.\n\t0x00 calldataload 0xE0 shr\n\tdup1 __FUNC_SIG(\"transfer(address,uint256)\") eq transfer jumpi\n\tdup1 __FUNC_SIG('transfer(address,uint256)') eq transfer jumpi\n\tdup1 __FUNC_SIG(transfer) eq transfer jumpi\n\n\ttransfer:\n\t\tTRANSFER()\n}",
+		"input": "functionName",
+		"output": "0xa9059cbb"
+	},
+	"__EVENT_HASH": {
+		"desc": "Push 32 bytes hash of event signature to the stack\n\nExample:\n#define event transfer(address,address,uint256)\n\n#define macro MAIN() = takes(0) returns (0) {\n\t__EVENT_HASH(\"transfer(address,address,uint256)\")\n\t__EVENT_HASH('transfer(address,address,uint256)')\n\t__EVENT_HASH(transfer)\n}",
+		"input": "eventName",
+		"output": "0xbeabacc8ffedac16e9a60acdb2ca743d80c2ebb44977a93fa8e483c74d2b35a8"
+	},
 	"lt": {
 		"opcode": "10",
 		"desc": "Less-than comparison",
