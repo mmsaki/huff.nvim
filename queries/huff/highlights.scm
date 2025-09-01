@@ -63,7 +63,7 @@
 (opcode) @constant.macro
 (parameter name: (identifier) @Identifier)
 (referenced_constant) @Identifier
-(referenced_parameter) @Identifier
+(referenced_parameter) @PreProc
 (string_literal) @String
 (table name: (identifier) @Function)
 (test name: (identifier) @Function)
