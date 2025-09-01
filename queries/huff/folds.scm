@@ -6,8 +6,6 @@
   "{" @fold.start
   "}" @fold.end) @fold
 
-(comment_block) @fold
-
 (natspec_block) @fold
 
 (parameter_list
@@ -18,22 +16,22 @@
   "#[" @fold.start
   "]" @fold.end) @fold
 
-(declaration_macro
+(macro
   (macro_body) @fold)
 
-(declaration_fn
+(fn
   (macro_body) @fold)
 
-(declaration_test
+(test
   (macro_body) @fold)
 
-(declaration_table
+(table
   (macro_body) @fold)
 
-(constant_definition
+(constant
   "=" @fold.start) @fold
 
-(interface_function
+(function
   "returns" @fold.start) @fold
 
 (builtin_function

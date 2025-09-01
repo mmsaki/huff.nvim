@@ -1,44 +1,41 @@
-(declaration_macro 
+(macro 
   (macro_body) @local.scope)
 
-(declaration_fn
+(fn
   (macro_body) @local.scope)
 
-(declaration_test
+(test
   (macro_body) @local.scope)
 
-(declaration_table
+(table
   (macro_body) @local.scope)
 
-(declaration_macro
+(macro
   name: (identifier) @local.definition.function)
 
-(declaration_fn
+(fn
   name: (identifier) @local.definition.function)
 
-(declaration_test
+(test
   name: (identifier) @local.definition.function)
 
-(constant_definition
+(constant
   name: (identifier) @local.definition.constant)
 
-(error_definition  
-  name: (identifier) @local.definition.type)
-
-(interface_function
+(error
   name: (identifier) @local.definition.function)
 
-(interface_event
+(event
   name: (identifier) @local.definition.function)
 
-(declaration_table
-  name: (identifier) @local.definition.constant)
+(table
+  name: (identifier) @local.definition.function)
 
-(declaration_jumptable
-  name: (identifier) @local.definition.constant)
+(jumptable
+  name: (identifier) @local.definition.function)
 
 (jumpdest_label
-  name: (identifier) @jumpdest_declaration)
+  name: (identifier) @local.definition.function)
 
 (parameter
   name: (identifier) @local.definition.parameter)
@@ -46,27 +43,27 @@
 (macro_call  
   name: (identifier) @local.reference)
 
-(constant_reference) @local.reference
+(referenced_constant) @local.reference
+
+(referenced_parameter) @local.reference
 
 (builtin_function
-  args: (identifier) @local.reference)
+  args: (identifier) @local.definition.parameter)
 
 (macro_call
-  name: (identifier) @local.reference
-  (#match? @local.reference "^[a-z_][a-z0-9_]*$"))
+  name: (identifier) @local.definition.parameter
+  (#match? @local.definition.parameter "^[a-z_][a-z0-9_]*$"))
 
 (jumptable_body
-  (identifier) @local.reference)
+  (jumpdest) @local.reference)
 
-(control_include) @local.import
+(import) @local.import
 
-(control_include
+(import
   path: (string_literal) @local.import)
 
-(template_parameter_call) @local.reference
-
 (decorator_item  
-  name: (identifier) @local.reference)
+  name: (identifier) @local.definition.parameter)
 
 (opcode) @local.definition.builtin
 

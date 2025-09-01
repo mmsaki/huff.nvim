@@ -25,17 +25,8 @@
 (macro_body
   (macro_call) @indent.branch)
 
-(macro_body
-  (opcode) @indent.branch)
-
-(macro_body
-  (number) @indent.branch)
-
 (macro_body  
   (builtin_function) @indent.branch)
-
-(macro_body
-  (constant) @indent.branch)
 
 (comment) @indent.auto
 
@@ -48,8 +39,6 @@
 
 [
   (declaration)
-  (interface)  
-  (error)
-  (control)
+  (import)
   (constant)
 ] @indent.zero

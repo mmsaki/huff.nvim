@@ -1,88 +1,77 @@
 (natspec_line) @Comment
 (natspec_block) @Comment
-(comment_line) @Comment
-(comment_block) @Comment
+(comment) @Comment
 
 "#define" @Define
-"macro" @Keyword
+"macro" @Macro
 "fn" @Keyword
 "jumptable" @Keyword
 "jumptable__packed" @Keyword
 "function" @Keyword
 "event" @Keyword
-"error" @Keyword
+"error" @keyword
 "constant" @Keyword
 "table" @Keyword
 "test" @Keyword
 "takes" @Keyword
 "returns" @Keyword
 
-(declaration_macro name: (identifier) @Function)
-(declaration_fn name: (identifier) @Function)
-(declaration_jumptable name: (identifier) @Function)
-(declaration_jumptable_packed name: (identifier) @Function)
-(declaration_table name: (identifier) @Function)
-(declaration_test name: (identifier) @Function)
-(interface_function name: (identifier) @Function)
-(interface_event name: (identifier) @Function)
-(error_definition name: (identifier) @Error)
+(macro name: (identifier) @Function)
+(fn name: (identifier) @Function)
+(jumptable name: (identifier) @Function)
+(jumptable_packed name: (identifier) @Function)
+(table name: (identifier) @Function)
+(test name: (identifier) @Function)
+(function name: (identifier) @Function)
+(event name: (identifier) @Function)
+(error name: (identifier) @Function)
 
-(interface_primitives) @Type
+(type) @Type
 "view" @Keyword
 "pure" @Keyword
 "payable" @Keyword
 "nonpayable" @Keyword
-"external" @Keyword
-"internal" @Keyword
-"public" @Keyword
-"private" @Keyword
 "memory" @Keyword
 "storage" @Keyword
 "calldata" @Keyword
 
 (parameter name: (identifier) @Identifier)
 
-(opcode) @Identifier
-"jump" @Identifier
-"jumpi" @Identifier
-
-(template_parameter_call
-  (template_token) @attribute.builtin)
+(opcode) @constant.macro
 
 (macro_call name: (identifier) @Function)
 
-(constant_definition name: (identifier) @Identifier)
-(constant_reference) @Constant
+(constant name: (identifier) @Identifier)
+(referenced_constant) @Identifier
+(referenced_parameter) @Identifier
 
-(number_decimal) @Number
-(number_hex) @Number
+(number) @Number
 
-(interface_primitives array_size: (number_decimal) @Number)
+(type array_size: (number) @Number)
+
 (jumpdest_label name: (identifier) @Label)
 (jumpdest name: (identifier) @Label)
-(jumptable_body (identifier) @Label)
+(jumptable_body (jumpdest name: (identifier)) @Label)
 
 ((macro_call name: (identifier) @Function)
  (#match? @Function "^[A-Z][A-Z0-9_]*$")) ; All caps suggests macro
 
-(builtin_function) @Keyword
+(builtin_function) @Function.builtin
 (builtin_function args: (identifier) @Function)
-"__ERROR" @Constant
-"__EVENT_HASH" @Constant
-"__FUNC_SIG" @Constant
-"__RIGHTPAD" @Constant
-"__codesize" @Constant
-"__tablesize" @Constant
-"__tablestart" @Constant
+"__ERROR" @function.builtin
+"__EVENT_HASH" @function.builtin
+"__FUNC_SIG" @function.builtin
+"__RIGHTPAD" @function.builtin
+"__codesize" @function.builtin
+"__tablesize" @function.builtin
+"__tablestart" @function.builtin
 
 "#include" @Include
-(control_include path: (string_literal) @String)
-
-(modifier_indexed) @Keyword
+(import path: (string_literal) @String)
 
 (string_literal) @String
 
-(decorator) @Identifier
+(decorator) @attribute
 (decorator_item name: (identifier) @Identifier)
 (decorator_item args: (string_literal) @String)
 (decorator_item args: (number) @Number)
@@ -97,5 +86,3 @@
 "[" @Delimiter
 "]" @Delimiter
 "#[" @Delimiter
-">" @attribute.builtin
-"<" @attribute.builtin
