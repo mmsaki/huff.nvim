@@ -2,6 +2,7 @@
 (natspec_block) @Comment
 (comment) @Comment
 
+"#include" @Include
 "#define" @Define
 "macro" @Macro
 "fn" @Keyword
@@ -66,7 +67,6 @@
 "__tablesize" @function.builtin
 "__tablestart" @function.builtin
 
-"#include" @Include
 (import path: (string_literal) @String)
 
 (string_literal) @String
