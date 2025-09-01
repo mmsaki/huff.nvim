@@ -39,6 +39,7 @@
 "}" @Delimiter
 
 (builtin_function args: (identifier) @Function)
+(builtin_function table: (identifier) @Type)
 (builtin_function) @Function.builtin
 (comment) @Comment
 (constant name: (identifier) @Identifier)
@@ -53,8 +54,8 @@
 (import path: (string_literal) @String)
 (jumpdest name: (identifier) @Label)
 (jumpdest_label name: (identifier) @Label)
-(jumptable name: (identifier) @Function)
-(jumptable_packed name: (identifier) @Function)
+(jumptable name: (identifier) @Type)
+(jumptable_packed name: (identifier) @Type)
 (macro name: (identifier) @Function)
 (macro_call name: (identifier) @Function)
 (natspec_block) @Comment
@@ -65,7 +66,7 @@
 (referenced_constant) @Identifier
 (referenced_parameter) @PreProc
 (string_literal) @String
-(table name: (identifier) @Function)
+(table name: (identifier) @Type)
 (test name: (identifier) @Function)
 (type array_size: (number) @Number)
 (type) @Type
