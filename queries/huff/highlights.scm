@@ -43,7 +43,7 @@
 
 (constant name: (identifier) @Identifier)
 (referenced_constant) @Identifier
-(referenced_parameter) @Identifier
+(referenced_parameter) @PreProc
 
 (number) @Number
 
