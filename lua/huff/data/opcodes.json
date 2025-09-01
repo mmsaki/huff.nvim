@@ -1,4 +1,29 @@
 {
+	"__tablestart": {
+		"desc": "Push table start to the stack\n\nExample:\n\n#define jumptable__packed PACKED_JUMPTABLE {\n\tlab_0 lab_1 lab_2 lab_3\n}\n\n#define jumptable STANDARD_JUMPTABLE {\n\tlab_0 // 0 00000\n\tlab_1 // 1 00001\n\tlab_2 // 2 00010\n\tlab_3 // 3 00011\n}\n\n#define macro BUILTIN_TEST() = takes(0) returns(2) {\n\t__tablestart(PACKED_JUMPTABLE)\n\t__tablestart(STANDARD_JUMPTABLE)\n}\n\n#define macro CONSTRUCTOR() = takes(0) returns (0) {\n\tBUILTIN_TEST()\n\n\tlab_0:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_1:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_1:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_3:\n\t\t0x00\n\t\t0x00\n\t\treturn\n}",
+		"input": "table",
+		"output": "0x04"
+	},
+	"__tablesize": {
+		"desc": "Push table size to the stack\n\nExample:\n\n#define jumptable__packed PACKED_JUMPTABLE {\n\tlab_0 lab_1 lab_2 lab_3\n}\n\n#define jumptable STANDARD_JUMPTABLE {\n\tlab_0 // 0 00000\n\tlab_1 // 1 00001\n\tlab_2 // 2 00010\n\tlab_3 // 3 00011\n}\n\n#define table CODE_TABLE {\n\t0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF\n}\n\n#define macro TEST_INIT_JUMP_TABLE() = takes(0) returns(1) {\n\t__tablesize(STANDARD_JUMPTABLE) __tablestart(STANDARD_JUMPTABLE) 0x00 codecopy\n}\n\n#define macro BUILTIN_TEST() = takes(0) returns(1) {\n\t__tablesize(PACKED_JUMPTABLE)\n}\n\n #define macro BUILTIN_TEST_2() = takes(0) returns(1) {\n\t__tablesize(CODE_TABLE)\n}\n\n#define macro MAIN() = takes(0) returns (0) {\n\tBUILTIN_TEST()\n\tTEST_INIT_JUMP_TABLE()\n\tBUILTIN_TEST_2()\n\n\tlab_0:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_1:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_1:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_3:\n\t\t0x00\n\t\t0x00\n\t\treturn\n}",
+		"input": "table",
+		"output": "0x04"
+	},
+	"__codesize": {
+		"desc": "Push code size to the stack\n\nExample:\n\n#define constant OWNER_POINTER = FREE_STORAGE_POINTER()\n\n#define macro OWNABLE() = takes (0) returns (0) {\n\tcaller [OWNER_POINTER] sstore\n}\n\n#define macro BUILTIN_TEST() = takes(0) returns(1) {\n\t__codesize(OWNABLE)\n}\n\n#define macro CONSTRUCTOR() = takes(0) returns (0) {\n\tBUILTIN_TEST()\n}",
+		"input": "macro",
+		"output": "0x6003"
+	},
+	"__CODECOPY_DYN_ARG": {
+		"desc": "Copy dynamic arg data in current environment to memory\n\nExample:\n\n#define macro MAIN() = {\n\t// Store first dynamic constructor argument in memory @ 0x20\n\t__CODECOPY_DYN_ARG(0x00, 0x20)\n}\n\n#define macro CONSTRUCTOR() = {}",
+		"input": "argOffset | destOffset",
+		"output": ""
+	},
+	"__RIGHTPAD": {
+		"desc": "Push 32 bytes right padded of argument\n\nExample:\n\n#define macro MAIN() = takes (0) returns (0) {\n\t__RIGHTPAD(0xa57b)\n}",
+		"input": "param",
+		"output": "0xa57b000000000000000000000000000000000000000000000000000000000000"
+	},
 	"__ERROR": {
 		"desc": "Push 4 byte selector of error to the stack\n\nExample:\n#define error PanicError(string)\n#define macro PANIC() = takes (1) returns (0) {\n\t// Input stack:          [panic_code]\n\t__ERROR(PanicError)   // [panic_error_selector, panic_code]\n\t0x00 mstore           // [panic_code]\n\t0x04 mstore           // []\n\t0x24 0x00 revert\n}\n#define macro REQUIRE() = takes (3) returns (0) {\n\t// Input stack:          [condition, message_length, message]\n\tcontinue jumpi        // [message]\n\n\t__ERROR(\"Error(string)\")// [error_selector, message_length, message]\n\t0x00 mstore           // [message_length, message]\n\t0x20 0x04 mstore      // [message_length, message]\n\t0x24 mstore           // [message]\n\t0x44 mstore           // []\n\n\t0x64 0x00 revert\n\ncontinue:\n\t\tpop               // []\n}\n",
 		"input": "errorName",
