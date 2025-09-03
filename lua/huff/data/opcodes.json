@@ -1,17 +1,17 @@
 {
 	"__tablestart": {
-		"desc": "Push table start to the stack\n\nExample:\n\n#define jumptable__packed PACKED_JUMPTABLE {\n\tlab_0 lab_1 lab_2 lab_3\n}\n\n#define jumptable STANDARD_JUMPTABLE {\n\tlab_0 // 0 00000\n\tlab_1 // 1 00001\n\tlab_2 // 2 00010\n\tlab_3 // 3 00011\n}\n\n#define macro BUILTIN_TEST() = takes(0) returns(2) {\n\t__tablestart(PACKED_JUMPTABLE)\n\t__tablestart(STANDARD_JUMPTABLE)\n}\n\n#define macro CONSTRUCTOR() = takes(0) returns (0) {\n\tBUILTIN_TEST()\n\n\tlab_0:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_1:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_1:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_3:\n\t\t0x00\n\t\t0x00\n\t\treturn\n}",
+		"desc": "Pushes the program counter (PC) of the start of the table passed to the stack.\n\nExample:\n\n#define jumptable__packed PACKED_JUMPTABLE {\n\tlab_0 lab_1 lab_2 lab_3\n}\n\n#define jumptable STANDARD_JUMPTABLE {\n\tlab_0 // 0 00000\n\tlab_1 // 1 00001\n\tlab_2 // 2 00010\n\tlab_3 // 3 00011\n}\n\n#define macro BUILTIN_TEST() = takes(0) returns(2) {\n\t__tablestart(PACKED_JUMPTABLE)\n\t__tablestart(STANDARD_JUMPTABLE)\n}\n\n#define macro CONSTRUCTOR() = takes(0) returns (0) {\n\tBUILTIN_TEST()\n\n\tlab_0:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_1:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_1:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_3:\n\t\t0x00\n\t\t0x00\n\t\treturn\n}",
 		"input": "table",
 		"output": "0x04"
 	},
 	"__tablesize": {
-		"desc": "Push table size to the stack\n\nExample:\n\n#define jumptable__packed PACKED_JUMPTABLE {\n\tlab_0 lab_1 lab_2 lab_3\n}\n\n#define jumptable STANDARD_JUMPTABLE {\n\tlab_0 // 0 00000\n\tlab_1 // 1 00001\n\tlab_2 // 2 00010\n\tlab_3 // 3 00011\n}\n\n#define table CODE_TABLE {\n\t0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF\n}\n\n#define macro TEST_INIT_JUMP_TABLE() = takes(0) returns(1) {\n\t__tablesize(STANDARD_JUMPTABLE) __tablestart(STANDARD_JUMPTABLE) 0x00 codecopy\n}\n\n#define macro BUILTIN_TEST() = takes(0) returns(1) {\n\t__tablesize(PACKED_JUMPTABLE)\n}\n\n #define macro BUILTIN_TEST_2() = takes(0) returns(1) {\n\t__tablesize(CODE_TABLE)\n}\n\n#define macro MAIN() = takes(0) returns (0) {\n\tBUILTIN_TEST()\n\tTEST_INIT_JUMP_TABLE()\n\tBUILTIN_TEST_2()\n\n\tlab_0:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_1:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_1:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_3:\n\t\t0x00\n\t\t0x00\n\t\treturn\n}",
+		"desc": "Pushes the code size of the table passed to the stack.\n\nExample:\n\n#define jumptable__packed PACKED_JUMPTABLE {\n\tlab_0 lab_1 lab_2 lab_3\n}\n\n#define jumptable STANDARD_JUMPTABLE {\n\tlab_0 // 0 00000\n\tlab_1 // 1 00001\n\tlab_2 // 2 00010\n\tlab_3 // 3 00011\n}\n\n#define table CODE_TABLE {\n\t0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF\n}\n\n#define macro TEST_INIT_JUMP_TABLE() = takes(0) returns(1) {\n\t__tablesize(STANDARD_JUMPTABLE) __tablestart(STANDARD_JUMPTABLE) 0x00 codecopy\n}\n\n#define macro BUILTIN_TEST() = takes(0) returns(1) {\n\t__tablesize(PACKED_JUMPTABLE)\n}\n\n #define macro BUILTIN_TEST_2() = takes(0) returns(1) {\n\t__tablesize(CODE_TABLE)\n}\n\n#define macro MAIN() = takes(0) returns (0) {\n\tBUILTIN_TEST()\n\tTEST_INIT_JUMP_TABLE()\n\tBUILTIN_TEST_2()\n\n\tlab_0:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_1:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_1:\n\t\t0x00\n\t\t0x00\n\t\treturn\n\tlab_3:\n\t\t0x00\n\t\t0x00\n\t\treturn\n}",
 		"input": "table",
 		"output": "0x04"
 	},
 	"__codesize": {
-		"desc": "Push code size to the stack\n\nExample:\n\n#define constant OWNER_POINTER = FREE_STORAGE_POINTER()\n\n#define macro OWNABLE() = takes (0) returns (0) {\n\tcaller [OWNER_POINTER] sstore\n}\n\n#define macro BUILTIN_TEST() = takes(0) returns(1) {\n\t__codesize(OWNABLE)\n}\n\n#define macro CONSTRUCTOR() = takes(0) returns (0) {\n\tBUILTIN_TEST()\n}",
-		"input": "macro",
+		"desc": "Pushes the code size of the macro or function passed to the stack.\n\nExample:\n\n#define constant OWNER_POINTER = FREE_STORAGE_POINTER()\n\n#define macro OWNABLE() = takes (0) returns (0) {\n\tcaller [OWNER_POINTER] sstore\n}\n\n#define macro BUILTIN_TEST() = takes(0) returns(1) {\n\t__codesize(OWNABLE)\n}\n\n#define macro CONSTRUCTOR() = takes(0) returns (0) {\n\tBUILTIN_TEST()\n}",
+		"input": "<macro>|<function>",
 		"output": "0x6003"
 	},
 	"__CODECOPY_DYN_ARG": {
@@ -20,24 +20,39 @@
 		"output": ""
 	},
 	"__RIGHTPAD": {
-		"desc": "Push 32 bytes right padded of argument\n\nExample:\n\n#define macro MAIN() = takes (0) returns (0) {\n\t__RIGHTPAD(0xa57b)\n}",
-		"input": "param",
+		"desc": "Push 32 bytes right padded of argument\n\nAt compile time, the invocation of __RIGHTPAD is substituted with PUSH32 padded_literal, \nwhere padded_literal is the right padded version of the passed input.\n\nExample:\n\n#define macro MAIN() = takes (0) returns (0) {\n\t__RIGHTPAD(0xa57b)\n}",
+		"input": "0xa57b",
 		"output": "0xa57b000000000000000000000000000000000000000000000000000000000000"
 	},
+	"__LEFTPAD": {
+		"desc": "Push 32 bytes left padded of argument\n\nAt compile time, the invocation of __LEFTPAD is substituted with padded_literal, where \npadded_literal is the left padded version of the passed input. \nThis function is only available as constant assignment or in a code table.\n\nExample:\n\n#define macro MAIN() = takes (0) returns (0) {\n\t__LEFTPAD(0xa57b)\n}",
+		"input": "0xa57b",
+		"output": "0x000000000000000000000000000000000000000000000000000000000000a57b"
+	},
 	"__ERROR": {
-		"desc": "Push 4 byte selector of error to the stack\n\nExample:\n#define error PanicError(string)\n#define macro PANIC() = takes (1) returns (0) {\n\t// Input stack:          [panic_code]\n\t__ERROR(PanicError)   // [panic_error_selector, panic_code]\n\t0x00 mstore           // [panic_code]\n\t0x04 mstore           // []\n\t0x24 0x00 revert\n}\n#define macro REQUIRE() = takes (3) returns (0) {\n\t// Input stack:          [condition, message_length, message]\n\tcontinue jumpi        // [message]\n\n\t__ERROR(\"Error(string)\")// [error_selector, message_length, message]\n\t0x00 mstore           // [message_length, message]\n\t0x20 0x04 mstore      // [message_length, message]\n\t0x24 mstore           // [message]\n\t0x44 mstore           // []\n\n\t0x64 0x00 revert\n\ncontinue:\n\t\tpop               // []\n}\n",
+		"desc": "Push 4 byte selector of error to the stack\n\nAt compile time, the invocation of __ERROR is substituted with PUSH32 error_selector, \nwhere error_selector is the left-padded 4 byte error selector of the passed error definition.\n\nExample:\n\n#define error PanicError(string)\n#define macro PANIC() = takes (1) returns (0) {\n\t// Input stack:          [panic_code]\n\t__ERROR(PanicError)   // [panic_error_selector, panic_code]\n\t0x00 mstore           // [panic_code]\n\t0x04 mstore           // []\n\t0x24 0x00 revert\n}\n#define macro REQUIRE() = takes (3) returns (0) {\n\t// Input stack:          [condition, message_length, message]\n\tcontinue jumpi        // [message]\n\n\t__ERROR(\"Error(string)\")// [error_selector, message_length, message]\n\t0x00 mstore           // [message_length, message]\n\t0x20 0x04 mstore      // [message_length, message]\n\t0x24 mstore           // [message]\n\t0x44 mstore           // []\n\n\t0x64 0x00 revert\n\ncontinue:\n\t\tpop               // []\n}\n",
 		"input": "errorName",
 		"output": "0xbe20788c00000000000000000000000000000000000000000000000000000000"
 	},
 	"__FUNC_SIG": {
-		"desc": "Push 4 bytes of function signature to the stack\n\nExample:\n#define function transfer(address,uint256) nonpayable returns ()\n#define macro TRANSFER() = takes (0) returns (0) {\n\t//...\n}\n#define macro MAIN() = takes(0) returns (0) {\n\t// Identify which function is being called.\n\t0x00 calldataload 0xE0 shr\n\tdup1 __FUNC_SIG(\"transfer(address,uint256)\") eq transfer jumpi\n\tdup1 __FUNC_SIG('transfer(address,uint256)') eq transfer jumpi\n\tdup1 __FUNC_SIG(transfer) eq transfer jumpi\n\n\ttransfer:\n\t\tTRANSFER()\n}",
-		"input": "functionName",
+		"desc": "Push 4 bytes of function signature to the stack\n\nAt compile time, the invocation of __FUNC_SIG is substituted with PUSH4 function_selector, where \nfunction_selector is the 4 byte function selector of the passed function definition or string. If a \nstring is passed, it must represent a valid function signature i.e. \"test(address, uint256)\"\n\nExample:\n\n#define function transfer(address,uint256) nonpayable returns ()\n#define macro TRANSFER() = takes (0) returns (0) {\n\t//...\n}\n#define macro MAIN() = takes(0) returns (0) {\n\t// Identify which function is being called.\n\t0x00 calldataload 0xE0 shr\n\tdup1 __FUNC_SIG(\"transfer(address,uint256)\") eq transfer jumpi\n\tdup1 __FUNC_SIG('transfer(address,uint256)') eq transfer jumpi\n\tdup1 __FUNC_SIG(transfer) eq transfer jumpi\n\n\ttransfer:\n\t\tTRANSFER()\n}",
+		"input": "<string>|<function definition>",
 		"output": "0xa9059cbb"
 	},
 	"__EVENT_HASH": {
-		"desc": "Push 32 bytes hash of event signature to the stack\n\nExample:\n#define event transfer(address,address,uint256)\n\n#define macro MAIN() = takes(0) returns (0) {\n\t__EVENT_HASH(\"transfer(address,address,uint256)\")\n\t__EVENT_HASH('transfer(address,address,uint256)')\n\t__EVENT_HASH(transfer)\n}",
-		"input": "eventName",
+		"desc": "Push 32 bytes hash of event signature to the stack\n\nAt compile time, the invocation of __EVENT_HASH is substituted with PUSH32 event_hash, where \nevent_hash is the selector hash of the passed event definition or string. If a string is passed, it must \nrepresent a valid event signature i.e. \"TestEvent(uint256, address indexed)\"\n\nExample:\n\n#define event transfer(address,address,uint256)\n\n#define macro MAIN() = takes(0) returns (0) {\n\t__EVENT_HASH(\"transfer(address,address,uint256)\")\n\t__EVENT_HASH('transfer(address,address,uint256)')\n\t__EVENT_HASH(transfer)\n}",
+		"input": "<string>|<event definition>",
 		"output": "0xbeabacc8ffedac16e9a60acdb2ca743d80c2ebb44977a93fa8e483c74d2b35a8"
+	},
+	"__VERBATIM": {
+		"desc": "This function is used to insert raw hex data into the compiled bytecode. \nIt is useful for inserting raw opcodes or data into the compiled bytecode.",
+		"input": "<hex>",
+		"output": ""
+	},
+	"__BYTES": {
+		"desc": "This function allows to insert a string as UTF-8 encoded bytes into the compiled bytecode. \nThe resulting bytecode is limited to 32 bytes.\n\nExample:\n\n#define macro MAIN() = takes (0) returns (0) {\n\t__BYTES(\"hello\") // Will push UTF-8 encoded string (PUSH5 0x68656c6c6f)\n}",
+		"input": "\"hello\"",
+		"output": "0x68656c6c6f"
 	},
 	"lt": {
 		"opcode": "10",
