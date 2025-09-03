@@ -8,14 +8,17 @@
 "=" @Operator
 "[" @Delimiter
 "]" @Delimiter
+"__BYTES" @function.builtin
 "__CODECOPY_DYN_ARG" @function.builtin
 "__ERROR" @function.builtin
 "__EVENT_HASH" @function.builtin
 "__FUNC_SIG" @function.builtin
+"__LEFTPAD" @function.builtin
 "__RIGHTPAD" @function.builtin
 "__codesize" @function.builtin
 "__tablesize" @function.builtin
 "__tablestart" @function.builtin
+"__VERBATIM" @function.builtin
 "calldata" @Keyword
 "constant" @Keyword
 "error" @keyword
