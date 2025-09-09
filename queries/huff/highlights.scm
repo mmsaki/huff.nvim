@@ -41,9 +41,11 @@
 "{" @Delimiter
 "}" @Delimiter
 
-(builtin_function args: (identifier) @Function)
-(builtin_function table: (identifier) @Type)
-(builtin_function) @Function.builtin
+(builtin_function [
+  table: (identifier) @Type
+  args: [
+    (referenced_parameter) @PreProc
+    (referenced_constant) @Identifier]])
 (comment) @Comment
 (constant name: (identifier) @Identifier)
 (decorator) @attribute
