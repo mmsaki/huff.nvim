@@ -924,4 +924,10 @@
 		"input": "value",
 		"output": "value | value"
 	}
+	"clz": {
+		"opcode": "1E",
+		"desc": "Count leading zero bits. The number of leading zero bits in x (0 to 256).value",
+		"input": "x",
+		"output": "leading_zeros"
+	}
 }
