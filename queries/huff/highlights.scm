@@ -8,8 +8,10 @@
 "=" @Operator
 "[" @Delimiter
 "]" @Delimiter
+"__ASSERT_PC" @function.builtin
 "__BYTES" @function.builtin
 "__CODECOPY_DYN_ARG" @function.builtin
+"__EMBED_TABLE" @function.builtin
 "__ERROR" @function.builtin
 "__EVENT_HASH" @function.builtin
 "__FUNC_SIG" @function.builtin
