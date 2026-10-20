@@ -923,11 +923,41 @@
 		"desc": "Duplicate 1st stack item",
 		"input": "value",
 		"output": "value | value"
-	}
+	},
 	"clz": {
 		"opcode": "1E",
 		"desc": "Count leading zero bits. The number of leading zero bits in x (0 to 256).value",
 		"input": "x",
 		"output": "leading_zeros"
+	},
+	"keccak256": {
+		"opcode": "20",
+		"desc": "Compute Keccak-256 hash (alias of sha3)",
+		"input": "offset | size",
+		"output": "hash"
+	},
+	"slotnum": {
+		"opcode": "4B",
+		"desc": "Beacon chain slot number of the current block (Amsterdam)",
+		"input": "",
+		"output": "slot_number"
+	},
+	"dupn": {
+		"opcode": "E6",
+		"desc": "Duplicate the n-th stack item, 17 <= n <= 235 (EIP-8024, Amsterdam). Usage: dupn <n>",
+		"input": "... | value",
+		"output": "value | ... | value"
+	},
+	"swapn": {
+		"opcode": "E7",
+		"desc": "Swap the top with the (n+1)-th stack item, 17 <= n <= 235 (EIP-8024, Amsterdam). Usage: swapn <n>",
+		"input": "a | ... | b",
+		"output": "b | ... | a"
+	},
+	"exchange": {
+		"opcode": "E8",
+		"desc": "Swap the (n+1)-th and (m+1)-th stack items, 1 <= n < m, n + m <= 30 (EIP-8024, Amsterdam). Usage: exchange <n> <m>",
+		"input": "... | a | ... | b",
+		"output": "... | b | ... | a"
 	}
 }

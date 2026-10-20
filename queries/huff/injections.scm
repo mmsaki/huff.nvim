@@ -7,5 +7,3 @@
   (#match? @injection.content "^\"0x[a-fA-F0-9]+\"$")
   (#set! injection.language "hex"))
 
-((number) @injection.content
-  (#set! injection.language "hex"))

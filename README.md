@@ -26,7 +26,7 @@ Using **[lazy.nvim](https://github.com/folke/lazy.nvim)**:
 ```lua
 return {
   "mmsaki/huff.nvim",
-  version = "0.2.*",
+  version = "0.3.*",
   dependencies = { "nvim-treesitter/nvim-treesitter" },
   opts = {
     window_type = "floating", -- "floating" or "split"

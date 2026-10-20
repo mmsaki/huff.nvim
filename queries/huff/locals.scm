@@ -1,18 +1,4 @@
-[
-  "__ASSERT_PC"
-  "__BYTES"
-  "__CODECOPY_DYN_ARG"
-  "__EMBED_TABLE"
-  "__ERROR"
-  "__EVENT_HASH"
-  "__FUNC_SIG"
-  "__LEFTPAD"
-  "__RIGHTPAD"
-  "__codesize"
-  "__tablesize"
-  "__tablestart"
-  "__VERBATIM"
-] @local.definition.builtin
+(builtin_function name: _ @local.definition.builtin)
 
 (macro 
   (macro_body) @local.scope)
@@ -59,3 +45,8 @@
 (decorator_item  
   name: (identifier) @local.definition.parameter)
 (opcode) @local.definition.builtin
+(block) @local.scope
+(for_statement
+  variable: (identifier) @local.definition.var)
+(macro_invocation
+  name: (referenced_parameter) @local.reference)

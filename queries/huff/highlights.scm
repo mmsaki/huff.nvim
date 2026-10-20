@@ -8,25 +8,22 @@
 "=" @Operator
 "[" @Delimiter
 "]" @Delimiter
-"__ASSERT_PC" @function.builtin
-"__BYTES" @function.builtin
-"__CODECOPY_DYN_ARG" @function.builtin
-"__EMBED_TABLE" @function.builtin
-"__ERROR" @function.builtin
-"__EVENT_HASH" @function.builtin
-"__FUNC_SIG" @function.builtin
-"__LEFTPAD" @function.builtin
-"__RIGHTPAD" @function.builtin
-"__codesize" @function.builtin
-"__tablesize" @function.builtin
-"__tablestart" @function.builtin
-"__VERBATIM" @function.builtin
+"{" @Delimiter
+"}" @Delimiter
+".." @Operator
+
+(builtin_function name: _ @function.builtin)
+"FREE_STORAGE_POINTER" @function.builtin
+(noop) @constant.builtin
+(boolean) @boolean
+
 "calldata" @Keyword
 "constant" @Keyword
 "error" @keyword
 "event" @Keyword
 "fn" @Keyword
 "function" @Keyword
+"indexed" @Keyword
 "jumptable" @Keyword
 "jumptable__packed" @Keyword
 "macro" @Keyword
@@ -40,9 +37,14 @@
 "takes" @Keyword
 "test" @Keyword
 "view" @Keyword
-"{" @Delimiter
-"}" @Delimiter
 
+["if" "else"] @keyword.conditional
+["for" "in" "step"] @keyword.repeat
+
+(binary_expression operator: _ @Operator)
+(unary_expression operator: _ @Operator)
+
+(builtin_function args: (identifier) @Function)
 (builtin_function [
   table: (identifier) @Type
   args: [
@@ -50,13 +52,18 @@
     (referenced_constant) @Identifier]])
 (comment) @Comment
 (constant name: (identifier) @Identifier)
+(constant value: (identifier) @Identifier)
 (decorator) @attribute
 (decorator_item args: (number) @Number)
 (decorator_item args: (string_literal) @String)
+(decorator_item args: (identifier) @variable.builtin)
 (decorator_item name: (identifier) @Identifier)
+(named_argument name: (identifier) @variable.parameter)
+(named_argument value: (identifier) @variable.builtin)
 (error name: (identifier) @Function)
 (event name: (identifier) @Function)
 (fn name: (identifier) @Function)
+(for_statement variable: (identifier) @variable)
 (function name: (identifier) @Function)
 (import path: (string_literal) @String)
 (jumpdest name: (identifier) @Label)
@@ -65,6 +72,8 @@
 (jumptable_packed name: (identifier) @Type)
 (macro name: (identifier) @Function)
 (macro_call name: (identifier) @Function)
+(macro_call args: (identifier) @Label)
+(macro_invocation args: (identifier) @Label)
 (natspec_block) @Comment
 (natspec_line) @Comment
 (number) @Number
